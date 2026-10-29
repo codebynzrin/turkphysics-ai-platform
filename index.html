@@ -1,3 +1,6 @@
+Warning: truncated output (original token count: 19081)
+Total output lines: 802
+
 <!doctype html>
 <html lang="az">
 <head>
@@ -60,6 +63,12 @@
     }
     .nav a:hover { background: #f5f8f5; color: var(--ink); }
     .nav a.active { background: #edf5e4; color: var(--teal); font-weight: 720; }
+    .page-view { display: none; }
+    .page-view.active { display: block; animation: page-in .18s ease-out; }
+    .page-heading { margin: 2px 0 18px; }
+    .page-heading h1 { font-size: clamp(23px, 2.6vw, 30px); }
+    .page-heading p { margin: 7px 0 0; color: var(--muted); font-size: 12px; }
+    @keyframes page-in { from { opacity: .55; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
     .nav-icon { width: 19px; display: inline-grid; place-items: center; font-size: 17px; line-height: 1; }
     .nav-badge { margin-left: auto; border-radius: 20px; font-size: 10px; padding: 3px 7px; color: #42604f; background: #e4f2d1; }
     .side-bottom { margin-top: auto; }
@@ -69,7 +78,7 @@
     .help-card p { color: var(--muted); line-height: 1.5; font-size: 11px; margin: 0 0 12px; }
     .help-card button { background: transparent; color: var(--teal); border: 0; padding: 0; font-weight: 750; font-size: 11px; }
     .profile { display: flex; align-items: center; gap: 10px; padding: 12px 7px 0; border-top: 1px solid var(--line); }
-    .avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: #f4d7c4; color: #69442d; font-weight: 800; font-size: 12px; }
+    .avatar { width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; background: #f4d7c4; color: #69442d; font-weight: 800; font-size: 10px; }
     .profile-name { font-size: 12px; font-weight: 720; }
     .profile-role { color: #89979a; font-size: 10px; margin-top: 3px; }
     .more { margin-left: auto; color: #879497; border: 0; background: none; font-size: 18px; }
@@ -233,6 +242,13 @@
     .day { font-size: 8px; color: #91a0a0; padding-bottom: 7px; }
     .week-note { color: #8a9799; font-size: 9px; margin: 10px 0 0; }
     .footer-note { text-align: center; color: #a4adae; font-size: 9px; padding-top: 22px; }
+    .progress-panel { padding: 0 18px 18px; }
+    .progress-summary { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 9px; color: var(--muted); font-size: 10px; }
+    .progress-summary strong { color: var(--teal); font-size: 13px; }
+    .progress-track.large { height: 8px; margin-bottom: 14px; }
+    .progress-checklist { display: grid; gap: 8px; padding: 0; margin: 0; list-style: none; }
+    .progress-checklist label { display: flex; gap: 9px; align-items: center; padding: 10px; border: 1px solid #edf0ee; border-radius: 11px; color: #52696a; font-size: 10px; cursor: pointer; }
+    .progress-checklist input { accent-color: var(--teal-2); }
     .toast { position: fixed; bottom: 22px; left: 50%; transform: translate(-50%, 15px); opacity: 0; pointer-events: none; background: #173f42; color: white; border-radius: 11px; padding: 11px 15px; font-size: 11px; box-shadow: 0 9px 24px rgba(17,48,47,.19); transition: .25s ease; z-index: 10; }
     .toast.show { opacity: 1; transform: translate(-50%, 0); }
     @media (max-width: 1120px) {
@@ -291,12 +307,12 @@
       </div>
       <div class="nav-label">Öyrənmə məkanı</div>
       <nav class="nav">
-        <a href="#overview" class="active"><span class="nav-icon">⌂</span>İcmal</a>
-        <a href="#courses"><span class="nav-icon">▤</span>Dərslərim <span class="nav-badge">4</span></a>
-        <a href="#simulation"><span class="nav-icon">◉</span>Simulyasiyalar</a>
-        <a href="#assistant"><span class="nav-icon">✳</span>AI köməkçi</a>
-        <a href="#resources"><span class="nav-icon">▧</span>Resurs kitabxanası</a>
-        <a href="#progress"><span class="nav-icon">⌁</span>İrəliləyişim</a>
+        <a href="#overview" class="active" data-page-link="overview"><span class="nav-icon">⌂</span>İcmal</a>
+        <a href="#courses" data-page-link="courses"><span class="nav-icon">▤</span>Kurslar <span class="nav-badge">4</span></a>
+        <a href="#laboratory" data-page-link="laboratory"><span class="nav-icon">◉</span>Laboratoriya</a>
+        <a href="#assistant" data-page-link="assistant"><span class="nav-icon">✳</span>AI köməkçi</a>
+        <a href="#resources" data-page-link="resources"><span class="nav-icon">▧</span>Resurslar</a>
+        <a href="#progress" data-page-link="progress"><span class="nav-icon">⌁</span>İrəliləyiş</a>
       </nav>
       <div class="side-bottom">
         <div class="help-card">
@@ -306,7 +322,7 @@
           <button type="button" data-scroll="assistant">Köməkçiyə keç <span aria-hidden="true">→</span></button>
         </div>
         <div class="profile">
-          <div class="avatar">N</div>
+          <div class="avatar">NG</div>
           <div><div class="profile-name">Nəzrin Gülşən</div><div class="profile-role">Tələbə hesabı</div></div>
           <button class="more" aria-label="Profil menyusu" type="button">···</button>
         </div>
@@ -360,7 +376,7 @@
       <div class="content-grid">
         <div class="column left">
           <section class="card continue-card" id="continue">
-            <div class="card-head"><div><h2 class="card-title">Davam etdiyin dərs</h2><div class="card-sub">Qaldığın yerdən öyrənməyə davam et</div></div><button class="text-link" type="button" data-scroll="courses">Bütün dərslər →</button></div>
+            <div class="card-head"><div><h2 class="card-title">Tövsiyə olunan dərs</h2><div class="card-sub">Mexanikanın əsas anlayışları ilə tanış ol</div></div><button class="text-link" type="button" data-scroll="courses">Dərs planına bax →</button></div>
             <div class="lesson-banner">
               <div class="lesson-copy"><div class="lesson-kicker">MEXANİKA · TÖVSİYƏ OLUNAN DƏRS</div><h3>Nyutonun ikinci qanunu</h3><p>Qüvvə, kütlə və təcil arasındakı əlaqə</p></div>
               <button class="play-circle" type="button" aria-label="Dərsə davam et" data-scroll="simulation">▶</button>
@@ -393,49 +409,54 @@
               <div class="resource-row"><span class="resource-icon">▤</span><div class="resource-info"><strong>Nyuton qanunları — qısa konspekt</strong><span>Mexanika · Dərs qeydi</span></div><button class="resource-action" type="button" data-resource="newton-notes">Bax</button></div>
               <div class="resource-row"><span class="resource-icon" style="background:#fff0e3">☷</span><div class="resource-info"><strong>Qüvvə və təcil — çalışma vərəqi</strong><span>Mexanika · 5 məsələ</span></div><button class="resource-action" type="button" data-resource="worksheet">Bax</button></div>
               <div class="resource-row"><span class="resource-icon" style="background:#e7f3f1">⚗</span><div class="resource-info"><strong>Virtual təcrübə ssenarisi</strong><span>Laboratoriya · 10 dəqiqə</span></div><button class="resource-action" type="button" data-resource="lab-guide">Bax</button></div>
-              <div class="resource-row"><span class="resource-icon" style="background:#f6eaf2">✓</span><div class="resource-info"><strong>Özünü yoxla — mexanika</strong><span>Qiymətləndirmə · 4 sual</span></div><button class="resource-action" type="button" data-resource="quiz">Başla</button></div>
-            </div>
-          </section>
-        </div>
-
-        <div class="column right">
-          <section class="card assistant" id="assistant">
-            <div class="assistant-head"><div class="bot-mark">✳</div><div><div class="bot-title">AI Fizika köməkçisi</div><div class="bot-state">Sualını verməyə hazıram</div></div><span class="demo-tag">DEMO</span></div>
-            <div class="chat" id="chat" aria-live="polite">
-              <div class="message bot">Salam! Bu mövzuda qüvvə, kütlə və təcilin əlaqəsini birlikdə araşdıra bilərik. Nə maraqlıdır?</div>
-            </div>
-            <div class="suggestions"><button class="suggestion" type="button" data-question="Təcil nə deməkdir?">Təcil nədir?</button><button class="suggestion" type="button" data-question="Kütlə iki dəfə artsa nə baş verər?">Kütlə artsa?</button></div>
-            <form class="chat-form" id="chatForm"><input id="chatInput" type="text" placeholder="Fizika sualını yaz..." autocomplete="off" aria-label="Fizika sualını yaz"><button class="send" type="submit" aria-label="Göndər">↑</button></form>
-            <div class="chat-disclaimer">Nümunə cavablar · Real AI bağlantısı sonrakı mərhələdə</div>
-          </section>
-
-          <section class="card" id="progress">
-            <div class="card-head"><div><h2 class="card-title">Bu həftə öyrən</h2><div class="card-sub">Mexanika kursundan başla və ilk simulyasiyanı sına.</div></div></div>
-            <div style="padding:0 18px 18px;display:flex;gap:9px;flex-wrap:wrap"><button class="resource-action" type="button" data-scroll="courses">Dərs planına bax</button><button class="resource-action" type="button" data-scroll="simulation">Laboratoriyaya keç →</button></div>
-          </section>
-        </div>
-      </div>
-      <div class="footer-note">TurkPhysics AI · Öyrən, sına, kəşf et</div>
-    </main>
-  </div>
-  <dialog class="detail-dialog" id="detailDialog" aria-labelledby="dialogTitle">
-    <div class="dialog-head"><div><h2 id="dialogTitle"></h2><p id="dialogSubtitle"></p></div><button class="dialog-close" type="button" data-dialog-close aria-label="Bağla">×</button></div>
-    <div class="dialog-body" id="dialogBody"></div>
-  </dialog>
-  <div class="toast" id="toast" role="status" aria-live="polite"></div>
-  <script>
-    (() => {
-      const toast = document.getElementById('toast');
-      const dialog = document.getElementById('detailDialog');
-      const paramA = document.getElementById('paramARange');
-      const paramB = document.getElementById('paramBRange');
-      let activeSim = 'newton';
-      let currentLanguage = localStorage.getItem('turkphysics-language') === 'tr' ? 'tr' : 'az';
-      let toastTimer;
+              <div class="resource-row"><span class="resource-icon" style="background:#f6eaf2">✓</span><div class="resource-info"><strong>Özünü yoxla — mexanika</strong><span>Qiymətləndirmə · 4 sual</span></div><button class="resource-action"…1081 tokens truncated…rauzerdə saxlanacaq.', nodes:[] }
+      };
+      for (const node of sourceGrid.querySelectorAll('#simulation,#resources,#assistant,#progress')) {
+        const key = node.id === 'simulation' ? 'laboratory' : node.id;
+        pageDefinitions[key].nodes.push(node);
+      }
+      const footer = main.querySelector('.footer-note');
+      Object.entries(pageDefinitions).forEach(([key, definition]) => {
+        const view = document.createElement('section');
+        view.className = 'page-view'; view.id = `view-${key}`; view.dataset.view = key;
+        if (definition.title) {
+          const heading = document.createElement('div'); heading.className = 'page-heading';
+          const title = document.createElement('h1'); title.textContent = definition.title;
+          const description = document.createElement('p'); description.textContent = definition.description;
+          heading.append(title, description); view.appendChild(heading);
+        }
+        definition.nodes.forEach(node => view.appendChild(node));
+        main.insertBefore(view, footer);
+      });
+      sourceGrid.remove();
+      const routeAliases = { simulation:'laboratory' };
+      function renderPage(route) {
+        const normalized = routeAliases[route] || route;
+        const selected = pageDefinitions[normalized] ? normalized : 'overview';
+        document.querySelectorAll('[data-view]').forEach(view => view.classList.toggle('active', view.dataset.view === selected));
+        document.querySelectorAll('[data-page-link]').forEach(link => link.classList.toggle('active', link.dataset.pageLink === selected));
+        if (normalized !== selected) history.replaceState(null, '', `#${selected}`);
+      }
+      function navigateToPage(route) {
+        const normalized = routeAliases[route] || route;
+        const selected = pageDefinitions[normalized] ? normalized : 'overview';
+        if (location.hash !== `#${selected}`) location.hash = selected;
+        renderPage(selected);
+        window.scrollTo({ top:0, behavior:'smooth' });
+      }
+      window.addEventListener('hashchange', () => {
+        renderPage(location.hash.slice(1));
+        window.scrollTo({ top:0, behavior:'smooth' });
+      });
+      document.querySelectorAll('[data-page-link]').forEach(link => link.addEventListener('click', event => {
+        event.preventDefault();
+        navigateToPage(link.dataset.pageLink);
+      }));
+      renderPage(location.hash.slice(1) || 'overview');
 
       const trPhrases = {
         'Əsas menyu':'Ana menü','Öyrənmə məkanı':'Öğrenme alanı','FİZİKA ÖYRƏNMƏ PLATFORMASI':'FİZİK ÖĞRENME PLATFORMU',
-        'İcmal':'Genel bakış','Dərslərim':'Derslerim','Simulyasiyalar':'Simülasyonlar','AI köməkçi':'Yapay zekâ asistanı','Resurs kitabxanası':'Kaynak kütüphanesi','İrəliləyişim':'İlerlemem',
+        'İcmal':'Genel bakış','Dərslərim':'Derslerim','Kurslar':'Dersler','Simulyasiyalar':'Simülasyonlar','Laboratoriya':'Laboratuvar','AI köməkçi':'Yapay zekâ asistanı','Resurslar':'Kaynaklar','Resurs kitabxanası':'Kaynak kütüphanesi','İrəliləyiş':'İlerleme','İrəliləyişim':'İlerlemem',
         'Birlikdə öyrənək':'Birlikte öğrenelim','Fizika sualını ver, addım-addım düşünməyə başla.':'Fizik sorunu sor, adım adım düşünmeye başla.','Köməkçiyə keç':'Asistana git','Tələbə hesabı':'Öğrenci hesabı',
         'Dil seçimi':'Dil seçimi','Bildirişlər':'Bildirimler','Şəxsi öyrənmə panelin':'Kişisel öğrenme panelin','Salam, Nəzrin Gülşən 👋':'Merhaba, Nəzrin Gülşən 👋','Bu gün bir az fizika kəşf etməyə hazırsan?':'Bugün biraz fizik keşfetmeye hazır mısın?',
         'Həftəlik planın':'Haftalık planın','ÖYRƏNMƏK KƏŞF ETMƏKDİR':'ÖĞRENMEK KEŞFETMEKTİR','Fizikanı təcrübə ilə kəşf et.':'Fiziği deneyimleyerek keşfet.','Anlayışı öyrən, dəyişənləri simulyasiyada sına, nəticəni özün izah et.':'Kavramı öğren, değişkenleri simülasyonda dene, sonucu kendin açıkla.','Öyrənməyə başla':'Öğrenmeye başla','Laboratoriyanı kəşf et':'Laboratuvarı keşfet','Fizikanın əsas mövzuları':'Fiziğin temel konuları','İnteraktiv simulyasiya':'Etkileşimli simülasyon','Öyrənmə dilləri':'Öğrenme dilleri','Qeyd, təcrübə və tapşırıq':'Not, deney ve alıştırma',
@@ -446,6 +467,7 @@
         'Nümunə model: sürtünmə nəzərə alınmır. Təcil Nyutonun ikinci qanunu ilə hesablanır.':'Örnek model: sürtünme dikkate alınmaz. İvme Newton’un ikinci yasasıyla hesaplanır.','Sürtünmə nəzərə alınmır. Xalis qüvvə və kütləyə görə təcil hesablanır.':'Sürtünme dikkate alınmaz. İvme, net kuvvet ve kütleye göre hesaplanır.','Başlanğıc sürəti sıfır qəbul edilir, hava müqaviməti nəzərə alınmır.':'İlk hız sıfır kabul edilir, hava direnci dikkate alınmaz.','İdeal mənbə və bir rezistorlu sadə dövrə modelləşdirilir.':'İdeal kaynak ve tek dirençli basit devre modellenir.','Tezlik və dalğa uzunluğundan dalğanın yayılma sürəti hesablanır.':'Dalganın yayılma hızı, frekans ve dalga boyundan hesaplanır.','1 mol ideal qaz qəbul edilir; R = 8.314 kPa·L/(mol·K).':'1 mol ideal gaz kabul edilir; R = 8.314 kPa·L/(mol·K).',
         'Mövzu kataloqu':'Konu kataloğu','Kurs seç, dərs planını və uyğun laboratoriyanı aç':'Kurs seç, ders planını ve ilgili laboratuvarı aç','Kurs seç, dərs planını və uyğun laboratoriyanı aç':'Kurs seç, ders planını ve ilgili laboratuvarı aç','4 KURS':'4 KURS','kurs':'kurs','lab':'laboratuvar','resurs':'kaynak','Hərəkət, qüvvə, Nyuton qanunları və enerji.':'Hareket, kuvvet, Newton yasaları ve enerji.','Elektrik və maqnetizm':'Elektrik ve manyetizma','Cərəyan, gərginlik, müqavimət və maqnit sahəsi.':'Akım, gerilim, direnç ve manyetik alan.','Dalğalar və rəqslər':'Dalgalar ve titreşimler','Period, tezlik, dalğa uzunluğu və səs.':'Periyot, frekans, dalga boyu ve ses.','İstilik və termodinamika':'Isı ve termodinamik','Temperatur, istilik ötürülməsi və qaz qanunları.':'Sıcaklık, ısı aktarımı ve gaz yasaları.','dərs':'ders','dərs ·':'ders ·','simulyasiya':'simülasyon','Başlanğıc':'Başlangıç','Orta':'Orta',
         'Dərs qeydləri, tapşırıqlar və təcrübə ssenariləri':'Ders notları, ödevler ve deney senaryoları','4 RESURS':'4 KAYNAK','Nyuton qanunları — qısa konspekt':'Newton yasaları — kısa özet','Dərs qeydi':'Ders notu','Qüvvə və təcil — çalışma vərəqi':'Kuvvet ve ivme — çalışma kağıdı','5 məsələ':'5 soru','Virtual təcrübə ssenarisi':'Sanal deney senaryosu','Təcrübə ssenarisi':'Deney senaryosu','10 dəqiqə':'10 dakika','Özünü yoxla — mexanika':'Kendini sına — mekanik','Qiymətləndirmə':'Değerlendirme','4 sual':'4 soru','Bax':'Görüntüle','Başla':'Başla','Yüklə':'İndir','Cavabları yoxla':'Yanıtları kontrol et','Növbəti addım':'Sonraki adım','Dərs planı':'Ders planı','Mexanika · 8 dərs':'Mekanik · 8 ders','Elektrik və maqnetizm · 7 dərs':'Elektrik ve manyetizma · 7 ders','Dalğalar və rəqslər · 6 dərs':'Dalgalar ve titreşimler · 6 ders','İstilik və termodinamika · 5 dərs':'Isı ve termodinamik · 5 ders','Tələbə':'Öğrenci','Düzgün':'Doğru','sualdan':'sorudan','nə düzgün cavab verdin.':'tanesine doğru yanıt verdin.',' Əla nəticə!':' Harika sonuç!',' Konspekti nəzərdən keçirib yenidən cəhd et.':' Özeti gözden geçirip yeniden dene.','Nümunə fəaliyyət məlumatları':'Örnek etkinlik verileri','Bu həftə':'Bu hafta','öyrənmisən.':'öğrendin.','dəqiqə':'dakika','saat':'saat','kq':'kg','san':'sn',
+        'Kurslarını seç':'Kurslarını seç','Dərs planını seç, mövzuları öyrən və uyğun simulyasiyaya keç.':'Ders planını seç, konuları öğren ve ilgili simülasyona geç.','Virtual laboratoriya':'Sanal laboratuvar','Dəyişənləri idarə et və fizika qanunlarının nəticəsini müşahidə et.':'Değişkenleri yönet ve fizik yasalarının sonucunu gözlemle.','Fizikanı birlikdə araşdıraq':'Fiziği birlikte keşfedelim','Fizika suallarını nümunə izahlarla araşdır. Köməkçi nümayiş rejimindədir.':'Fizik sorularını örnek açıklamalarla keşfet. Asistan tanıtım modundadır.','Öyrənmə materialları':'Öğrenme materyalleri','Dərs qeydləri, çalışma vərəqləri və təcrübə ssenariləri.':'Ders notları, çalışma kağıtları ve deney senaryoları.','Tamamladığın mövzuları işarələ; siyahı bu brauzerdə saxlanacaq.':'Tamamladığın konuları işaretle; liste bu tarayıcıda saklanır.','Öyrənmə planın':'Öğrenme planın','Bitirdiyin mövzular':'Tamamladığın konular','Mexanika · Nyutonun ikinci qanunu':'Mekanik · Newton’un ikinci yasası','Elektrik · Om qanunu':'Elektrik · Ohm yasası','Dalğalar · Yayılma sürəti':'Dalgalar · Yayılma hızı','Termodinamika · İdeal qaz':'Termodinamik · İdeal gaz',
         'AI Fizika köməkçisi':'Yapay Zekâ Fizik Asistanı','Sualını verməyə hazıram':'Sorunu yanıtlamaya hazırım','DEMO':'DEMO','Nümunə cavablar · Real AI bağlantısı sonrakı mərhələdə':'Örnek yanıtlar · Gerçek yapay zekâ bağlantısı sonraki aşamada','Fizika sualını yaz...':'Fizik sorunu yaz...','Təcil nədir?':'İvme nedir?','Kütlə artsa?':'Kütle artarsa?','Bu həftə':'Bu hafta','Öyrənmə fəaliyyətin':'Öğrenme etkinliğin','Hesabat →':'Rapor →','Bu gün üçün kiçik addım':'Bugün için küçük bir adım','10 dəqiqəlik öyrənmə tapşırığı':'10 dakikalık öğrenme görevi','Təcilə təsir edən amillər':'İvmeyi etkileyen faktörler','Simulyasiyada 2 sınaq apar':'Simülasyonda 2 deneme yap','Öyrən, sına, kəşf et':'Öğren, dene, keşfet'
       };
       function translateString(text) {
@@ -489,6 +511,23 @@
         applyLanguage();
       });
 
+      const progressChecks = [...document.querySelectorAll('[data-progress]')];
+      let savedProgress = {};
+      try { savedProgress = JSON.parse(localStorage.getItem('turkphysics-progress') || '{}'); } catch { savedProgress = {}; }
+      const progressCount = document.getElementById('progressCount');
+      const progressFill = document.getElementById('progressFill');
+      function updateProgress() {
+        const completed = progressChecks.filter(item => item.checked).length;
+        progressCount.textContent = `${completed} / ${progressChecks.length}`;
+        progressFill.style.width = `${progressChecks.length ? completed / progressChecks.length * 100 : 0}%`;
+        localStorage.setItem('turkphysics-progress', JSON.stringify(Object.fromEntries(progressChecks.map(item => [item.dataset.progress, item.checked]))));
+      }
+      progressChecks.forEach(item => {
+        item.checked = Boolean(savedProgress[item.dataset.progress]);
+        item.addEventListener('change', updateProgress);
+      });
+      updateProgress();
+
       function showToast(text) {
         toast.textContent = text;
         toast.classList.add('show');
@@ -507,8 +546,7 @@
 
       document.querySelectorAll('[data-scroll]').forEach(button => {
         button.addEventListener('click', () => {
-          const target = document.getElementById(button.dataset.scroll);
-          if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          navigateToPage(button.dataset.scroll);
         });
       });
 
@@ -632,7 +670,7 @@
         const course = courses[button.dataset.course];
         const lessons = course.lessons.map((lesson,i) => `<li><span>${String(i+1).padStart(2,'0')}</span>${lesson}</li>`).join('');
         openDialog(course.title, course.level, `<p>${course.description}</p><h3>Dərs planı</h3><ol class="lesson-list">${lessons}</ol><div class="dialog-action"><button class="primary-btn" type="button" id="startCourse">Dərsə başla →</button></div>`);
-        document.getElementById('startCourse').addEventListener('click', () => { dialog.close(); selectSimulation(course.sim); document.getElementById('simulation').scrollIntoView({behavior:'smooth'}); });
+        document.getElementById('startCourse').addEventListener('click', () => { dialog.close(); selectSimulation(course.sim); navigateToPage('laboratory'); });
       }));
 
       const resources = {
